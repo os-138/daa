@@ -1,0 +1,1379 @@
+﻿QUESTION BANK 
+1.Write a Scilab program to sort 10 numbers using:Bubble sort in increasing order.
+// Bubble Sort in Scilab
+// Define an array of 10 numbers
+numbers = [34, 7, 23, 32, 5, 62, 32, 32, 23, 12];
+
+// Number of elements in the array
+n = length(numbers);
+
+// Bubble Sort algorithm
+for i = 1:n-1
+    for j = 1:n-i
+        if numbers(j) > numbers(j+1)
+            // Swap the elements
+            temp = numbers(j);
+            numbers(j) = numbers(j+1);
+            numbers(j+1) = temp;
+        end
+    end
+end
+
+// Display the sorted array
+disp("Sorted numbers in increasing order:");
+disp(numbers);
+
+Insertion sort in increasing order. [10M]
+// Insertion Sort in Scilab
+// Define an array of 10 numbers
+numbers = [34, 7, 23, 32, 5, 62, 32, 32, 23, 12];
+
+// Number of elements in the array
+n = length(numbers);
+
+// Insertion Sort algorithm
+for i = 2:n
+    key = numbers(i);
+    j = i - 1;
+    
+    // Shift elements of numbers[1..i-1] that are greater than key
+    while j >= 1 & numbers(j) > key
+        numbers(j+1) = numbers(j);
+        j = j - 1;
+    end
+    
+    // Place the key at the correct position
+    numbers(j+1) = key;
+end
+
+// Display the sorted array
+disp("Sorted numbers in increasing order:");
+disp(numbers);
+
+Merge sort in increasing order. [10M]
+// Merge Sort in Scilab (Simplified)
+// Function to merge two sorted arrays
+function result = merge(left, right)
+    result = [];
+    while ~isempty(left) & ~isempty(right)
+        if left(1) < right(1)
+            result = [result, left(1)];
+            left = left(2:$);
+        else
+            result = [result, right(1)];
+            right = right(2:$);
+        end
+    end
+    result = [result, left, right]; // Append remaining elements
+endfunction
+
+// Merge Sort function
+function sorted = mergeSort(arr)
+    if length(arr) <= 1 then
+        sorted = arr;
+        return;
+    end
+    mid = floor(length(arr) / 2);
+    left = arr(1:mid);
+    right = arr(mid+1:$);
+    
+    left = mergeSort(left);
+    right = mergeSort(right);
+    
+    sorted = merge(left, right);
+endfunction
+
+// Main Code
+numbers = [34, 7, 23, 32, 5, 62, 32, 32, 23, 12]; // 10 numbers
+sortedNumbers = mergeSort(numbers); // Sorting the numbers using merge sort
+
+disp("Sorted numbers in increasing order:");
+disp(sortedNumbers);
+
+Linear search. Accept 5 numbers from the user and number to find.
+// Linear Search in Scilab
+
+// Accept 5 numbers from the user
+numbers = zeros(1, 5); // Initialize an empty array for 5 numbers
+for i = 1:5
+    numbers(i) = input("Enter a number: ");
+end
+
+// Accept the number to find
+target = input("Enter the number to find: ");
+
+// Linear Search Algorithm
+found = false;
+for i = 1:5
+    if numbers(i) == target then
+        found = true;
+        position = i;
+        break;
+    end
+end
+
+// Display the result
+if found then
+    disp("Number found at position: " + string(position));
+else
+    disp("Number not found.");
+end
+
+Binary search. Accept 5 numbers from the user and number to find.
+// Binary Search in Scilab (Simplified)
+
+// Accept 5 numbers from the user
+numbers = zeros(1, 5);
+for i = 1:5
+    numbers(i) = input("Enter a number: ");
+end
+
+// Sort the numbers to make binary search work
+numbers = sort(numbers);
+
+// Accept the number to find
+target = input("Enter the number to find: ");
+
+// Binary Search Algorithm
+low = 1;
+high = 5;
+found = false;
+
+while low <= high
+    mid = floor((low + high) / 2);
+    
+    if numbers(mid) == target then
+        found = true;
+        break;
+    elseif numbers(mid) < target then
+        low = mid + 1;
+    else
+        high = mid - 1;
+    end
+end
+
+// Display result
+if found then
+    disp("Number found.");
+else
+    disp("Number not found.");
+end
+
+6.Create a random array of n integers. Accept a value X from the user and use linear search algorithm to check whether the number is present in the array or not and output the position if the number is present.
+// Linear Search for a random array
+
+// Accept the value of n (number of elements in the array)
+n = input("Enter the number of elements in the array: ");
+
+// Generate a random array of n integers between 1 and 100
+numbers = randi(100, 1, n);
+
+// Display the generated array
+disp("Generated array:");
+disp(numbers);
+
+// Accept the value X to search for
+X = input("Enter the number to search for: ");
+
+// Linear Search Algorithm
+found = false;
+for i = 1:n
+    if numbers(i) == X then
+        found = true;
+        position = i;
+        break;
+    end
+end
+
+// Output the result
+if found then
+    disp("Number found at position: " + string(position));
+else
+    disp("Number not found.");
+End
+
+7.Write a Scilab program to sort a random array of n integers (accept the value of n from user) in ascending order by using:
+ a quick sort algorithm.
+// Quick Sort in Scilab
+
+// Function for Quick Sort
+function arr = quickSort(arr)
+    if length(arr) <= 1 then
+        return arr;
+    end
+    pivot = arr(1);  // Select the first element as the pivot
+    left = arr(arr < pivot);   // Elements smaller than pivot
+    right = arr(arr > pivot);  // Elements greater than pivot
+    arr = [quickSort(left), pivot, quickSort(right)];  // Recursively sort left and right
+endfunction
+
+// Main program
+
+// Accept the value of n (size of the array)
+n = input("Enter the number of elements in the array: ");
+
+// Generate a random array of n integers between 1 and 100
+numbers = randi(100, 1, n);
+
+// Display the original array
+disp("Original array:");
+disp(numbers);
+
+// Sort the array using quick sort
+sortedArray = quickSort(numbers);
+
+// Display the sorted array
+disp("Sorted array in ascending order:");
+disp(sortedArray);
+
+8.selection sort algorithm.
+// Selection Sort in Scilab
+
+// Function for Selection Sort
+function arr = selectionSort(arr)
+    n = length(arr);
+    for i = 1:n-1
+        minIndex = i;  // Assume the minimum element is at the current position
+        
+        // Find the smallest element in the unsorted part of the array
+        for j = i+1:n
+            if arr(j) < arr(minIndex) then
+                minIndex = j;
+            end
+        end
+        
+        // Swap the found minimum element with the first element of the unsorted part
+        if minIndex != i then
+            temp = arr(i);
+            arr(i) = arr(minIndex);
+            arr(minIndex) = temp;
+        end
+    end
+endfunction
+
+// Main program
+
+// Accept the value of n (size of the array)
+n = input("Enter the number of elements in the array: ");
+
+// Generate a random array of n integers between 1 and 100
+numbers = randi(100, 1, n);
+
+// Display the original array
+disp("Original array:");
+disp(numbers);
+
+// Sort the array using selection sort
+sortedArray = selectionSort(numbers);
+
+// Display the sorted array
+disp("Sorted array in ascending order:");
+disp(sortedArray);
+
+9.a counting sort algorithm.
+// Simplified Counting Sort in Scilab
+
+// Function for Counting Sort
+function arr = countingSort(arr)
+    // Find the maximum and minimum elements in the array
+    maxVal = max(arr);
+    minVal = min(arr);
+    
+    // Create a count array and initialize with zeros
+    count = zeros(1, maxVal - minVal + 1);
+    
+    // Fill the count array with the frequency of each number
+    for i = 1:length(arr)
+        count(arr(i) - minVal + 1) = count(arr(i) - minVal + 1) + 1;
+    end
+    
+    // Rebuild the sorted array
+    sortedArr = [];
+    for i = 1:length(count)
+        sortedArr = [sortedArr, ones(1, count(i)) * (i + minVal - 1)];
+    end
+    arr = sortedArr;  // Update the input array with sorted values
+endfunction
+
+// Main program
+
+// Accept the value of n (size of the array)
+n = input("Enter the number of elements in the array: ");
+
+// Generate a random array of n integers between 1 and 100
+numbers = randi(100, 1, n);
+
+// Display the original array
+disp("Original array:");
+disp(numbers);
+
+// Sort the array using counting sort
+sortedArray = countingSort(numbers);
+
+// Display the sorted array
+disp("Sorted array in ascending order:");
+disp(sortedArray);
+
+10 .Write a Scilab program to perform the following sorting for a given list of numbers:
+Element in array: 5,2,10,4,9,2,18
+ Bubble sort [10M]
+// Bubble Sort in Scilab
+
+// Function to perform Bubble Sort
+function arr = bubbleSort(arr)
+    n = length(arr);
+    for i = 1:n-1
+        for j = 1:n-i
+            if arr(j) > arr(j+1) then
+                // Swap elements if they are in the wrong order
+                temp = arr(j);
+                arr(j) = arr(j+1);
+                arr(j+1) = temp;
+            end
+        end
+    end
+endfunction
+
+// Main program
+
+// Given list of numbers
+numbers = [5, 2, 10, 4, 9, 2, 18];
+
+// Display the original array
+disp("Original array:");
+disp(numbers);
+
+// Sort the array using Bubble Sort
+sortedArray = bubbleSort(numbers);
+
+// Display the sorted array
+disp("Sorted array in ascending order:");
+disp(sortedArray);
+
+Insertion sort [10M]
+// Insertion Sort in Scilab
+
+// Function to perform Insertion Sort
+function arr = insertionSort(arr)
+    n = length(arr);
+    for i = 2:n  // Start from the second element
+        key = arr(i);  // Element to be inserted
+        j = i - 1;
+        
+        // Move elements of arr[0..i-1] that are greater than key to one position ahead
+        while j > 0 & arr(j) > key
+            arr(j+1) = arr(j);
+            j = j - 1;
+        end
+        
+        arr(j+1) = key;  // Insert the key in its correct position
+    end
+endfunction
+
+// Main program
+
+// Given list of numbers
+numbers = [5, 2, 10, 4, 9, 2, 18];
+
+// Display the original array
+disp("Original array:");
+disp(numbers);
+
+// Sort the array using Insertion Sort
+sortedArray = insertionSort(numbers);
+
+// Display the sorted array
+disp("Sorted array in ascending order:");
+disp(sortedArray);
+
+Bubble sort [10M]
+// Bubble Sort in Scilab
+
+// Function to perform Bubble Sort
+function arr = bubbleSort(arr)
+    n = length(arr);  // Get the length of the array
+    for i = 1:n-1  // Loop through each element of the array
+        for j = 1:n-i  // Last i elements are already sorted
+            if arr(j) > arr(j+1) then  // Compare adjacent elements
+                // Swap elements if they are in the wrong order
+                temp = arr(j);
+                arr(j) = arr(j+1);
+                arr(j+1) = temp;
+            end
+        end
+    end
+endfunction
+
+// Main program
+
+// Given list of numbers
+numbers = [5, 2, 10, 4, 9, 2, 18];
+
+// Display the original array
+disp("Original array:");
+disp(numbers);
+
+// Sort the array using Bubble Sort
+sortedArray = bubbleSort(numbers);
+
+// Display the sorted array
+disp("Sorted array in ascending order:");
+disp(sortedArray);
+
+Write a Scilab program for the implementation of following:
+ Topological sorting. [10M]
+// Topological Sorting using Kahn's Algorithm in Scilab
+
+// Function to perform Topological Sort using Kahn's Algorithm
+function topoSort(graph)
+    // Get the number of vertices (nodes)
+    n = size(graph, 1); 
+    
+    // Initialize an array to store in-degrees of all vertices
+    inDegree = zeros(1, n);
+    
+    // Compute in-degree for each vertex
+    for i = 1:n
+        for j = 1:n
+            if graph(i, j) == 1 then
+                inDegree(j) = inDegree(j) + 1;
+            end
+        end
+    end
+    
+    // Initialize the queue with all vertices having in-degree 0
+    queue = [];
+    for i = 1:n
+        if inDegree(i) == 0 then
+            queue = [queue, i];  // Add to the queue (1-based index)
+        end
+    end
+    
+    // Initialize a variable to keep track of the sorted order
+    sortedOrder = [];
+    
+    // Process the graph
+    while size(queue, 2) > 0
+        // Get the first vertex from the queue
+        u = queue(1);
+        queue = queue(2:$);  // Remove the first element from the queue
+        
+        // Add the vertex to the sorted order
+        sortedOrder = [sortedOrder, u];
+        
+        // Decrease in-degree for all the adjacent vertices of u
+        for v = 1:n
+            if graph(u, v) == 1 then
+                inDegree(v) = inDegree(v) - 1;
+                // If in-degree becomes 0, add v to the queue
+                if inDegree(v) == 0 then
+                    queue = [queue, v];
+                end
+            end
+        end
+    end
+    
+    // Check if there was a cycle (in case the graph is not a DAG)
+    if size(sortedOrder, 2) != n then
+        disp("Cycle detected! Topological sort is not possible.");
+    else
+        // Display the topologically sorted order
+        disp("Topological sorted order:");
+        disp(sortedOrder);
+    end
+endfunction
+
+// Main program
+
+// Adjacency matrix representation of the directed graph
+// Here, graph[i][j] = 1 means an edge from vertex i to vertex j
+graph = [
+    0, 1, 0, 0, 0;  // Vertex 1 -> Vertex 2
+    0, 0, 1, 0, 0;  // Vertex 2 -> Vertex 3
+    0, 0, 0, 1, 0;  // Vertex 3 -> Vertex 4
+    0, 0, 0, 0, 1;  // Vertex 4 -> Vertex 5
+    0, 0, 0, 0, 0;  // Vertex 5 (no outgoing edges)
+];
+
+// Perform Topological Sort
+topoSort(graph);
+
+n-Queens problem using a backtracking method. [10M]
+// Function to check if a queen can be placed at board[row][col]
+function isSafe(board, row, col, N)
+    // Check this column on the upper side
+    for i = 1:row-1
+        if board(i, col) == 1 then
+            return %F; // Return false if there's another queen in the same column
+        end
+    end
+    
+    // Check the upper left diagonal
+    for i = 1:row-1
+        if col - (row - i) >= 1 & board(i, col - (row - i)) == 1 then
+            return %F; // Return false if there's another queen in the upper left diagonal
+        end
+    end
+    
+    // Check the upper right diagonal
+    for i = 1:row-1
+        if col + (row - i) <= N & board(i, col + (row - i)) == 1 then
+            return %F; // Return false if there's another queen in the upper right diagonal
+        end
+    end
+    
+    return %T; // Return true if no conflicts are found
+endfunction
+
+// Function to solve N-Queens using backtracking
+function solveNQueens(board, row, N)
+    if row > N then
+        // All queens are placed, print the solution
+        disp(board);
+        return %T; // Return true to stop further recursion
+    end
+    
+    // Try placing a queen in all columns of the current row
+    for col = 1:N
+        if isSafe(board, row, col, N) then
+            board(row, col) = 1; // Place the queen
+            
+            // Recursively place queens in the next row
+            if solveNQueens(board, row + 1, N) then
+                return %T; // If the next row placement is successful, return true
+            end
+            
+            // If placing queen at board[row][col] doesn't lead to a solution, backtrack
+            board(row, col) = 0; // Remove the queen
+        end
+    end
+    
+    return %F; // If no position is found, return false
+endfunction
+
+// Main function to solve N-Queens problem
+function NQueens(N)
+    // Initialize the board with all zeros (no queens placed)
+    board = zeros(N, N);
+    
+    // Call the solveNQueens function starting from the first row
+    if ~solveNQueens(board, 1, N) then
+        disp("Solution does not exist.");
+    end
+endfunction
+// Example usage: Solve the 4-Queens problem
+N = 4;
+NQueens(N);
+15.Implement an application of DFS such as to find the topological sort of a directed
+acyclic graph.
+// Function to perform DFS on the graph and store the topological sort
+function dfs(graph, visited, stack, node, N)
+    // Mark the current node as visited
+    visited(node) = 1;
+    
+    // Recursively visit all adjacent vertices of the current node
+    for i = 1:N
+        if graph(node, i) == 1 & visited(i) == 0 then
+            dfs(graph, visited, stack, i, N);
+        end
+    end
+    
+    // Push the current node to the stack after processing all its neighbors
+    stack = [node, stack];
+endfunction
+
+// Function to perform topological sorting on a DAG using DFS
+function topologicalSort(graph, N)
+    visited = zeros(1, N);  // Array to keep track of visited nodes
+    stack = [];  // Stack to store the topologically sorted order
+    
+    // Call DFS for all unvisited nodes
+    for node = 1:N
+        if visited(node) == 0 then
+            dfs(graph, visited, stack, node, N);
+        end
+    end
+    
+    // Display the topologically sorted order
+    disp("Topologically sorted order:");
+    disp(stack);
+endfunction
+
+// Example: Adjacency matrix representation of a directed acyclic graph (DAG)
+graph = [
+    0, 1, 0, 0, 0;  // Node 1 -> Node 2
+    0, 0, 1, 0, 0;  // Node 2 -> Node 3
+    0, 0, 0, 1, 0;  // Node 3 -> Node 4
+    0, 0, 0, 0, 1;  // Node 4 -> Node 5
+    0, 0, 0, 0, 0   // Node 5 (no outgoing edges)
+];
+
+// Call the topologicalSort function to get the topological order
+topologicalSort(graph, 5);
+
+16.Write a Scilab program for implementing an application of BFS such as to find
+connected components of an undirected graph.
+// Function to perform BFS and mark the connected component
+function bfs(graph, visited, start_node, N)
+    queue = [];  // Queue for BFS
+    visited(start_node) = 1;  // Mark the start node as visited
+    queue = [queue, start_node];  // Add start node to queue
+
+    while size(queue, 2) > 0 do
+        node = queue(1);  // Dequeue the front node
+        queue = queue(2:$);  // Remove the front node from the queue
+
+        // Print the current node (part of the connected component)
+        disp(node);
+
+        // Traverse all neighbors of the current node
+        for i = 1:N
+            if graph(node, i) == 1 & visited(i) == 0 then
+                visited(i) = 1;  // Mark the neighbor as visited
+                queue = [queue, i];  // Enqueue the neighbor
+            end
+        end
+    end
+endfunction
+
+// Function to find and print all connected components using BFS
+function connectedComponents(graph, N)
+    visited = zeros(1, N);  // Array to track visited nodes
+
+    // Iterate through all nodes to find unvisited nodes and perform BFS
+    component_number = 1;
+    for node = 1:N
+        if visited(node) == 0 then
+            disp("Component " + string(component_number) + ":");
+            bfs(graph, visited, node, N);  // Call BFS from an unvisited node
+            component_number = component_number + 1;
+            disp("------");
+        end
+    end
+endfunction
+
+// Example: Adjacency matrix representation of an undirected graph
+graph = [
+    0, 1, 1, 0, 0;  // Node 1 is connected to Node 2 and Node 3
+    1, 0, 1, 0, 0;  // Node 2 is connected to Node 1 and Node 3
+    1, 1, 0, 1, 0;  // Node 3 is connected to Node 1, Node 2, and Node 4
+    0, 0, 1, 0, 1;  // Node 4 is connected to Node 3 and Node 5
+    0, 0, 0, 1, 0   // Node 5 is connected to Node 4
+];
+
+// Call the connectedComponents function to find and display all components
+connectedComponents(graph, 5);
+
+20 MARKS
+Write a Scilab program to solve the following problem:
+Nuts & Bolts Problem (Lock & Key problem) using Quick Sort. Given a set of n nuts of different sizes and n bolts of different sizes. There is a one-one mapping between nuts and bolts. Match nuts and bolts efficiently. Constraint: Comparison of a nut to another nut or a bolt to another bolt is not
+allowed. It means a nut can only be compared with a bolt and a bolt can only be compared with a nut to see which one is bigger/smaller. Another way of asking this problem is, to give a box with locks and keys where one lock can be opened by one key in the box. We need to match the pair.
+function [nuts, bolts] = matchNutsAndBolts(nuts, bolts)
+    if length(nuts) <> length(bolts) then
+        error("The number of nuts and bolts must be the same.");
+    end
+
+    [nuts, bolts] = quicksortMatch(nuts, bolts);
+endfunction
+
+function [sortedNuts, sortedBolts] = quicksortMatch(nuts, bolts)
+    n = length(nuts);
+
+    if n <= 1 then
+        sortedNuts = nuts;
+        sortedBolts = bolts;
+        return;
+    end
+
+    // Choose a pivot bolt
+    pivotBolt = bolts($); // Last element of bolts array
+    // Partition nuts using pivot bolt
+    [leftNuts, rightNuts, matchedNut] = partition(nuts, pivotBolt);
+    
+    // Partition bolts using the matched nut
+    [leftBolts, rightBolts] = partition(bolts, matchedNut);
+
+    // Recursively sort and match
+    [sortedLeftNuts, sortedLeftBolts] = quicksortMatch(leftNuts, leftBolts);
+    [sortedRightNuts, sortedRightBolts] = quicksortMatch(rightNuts, rightBolts);
+
+    // Combine results
+    sortedNuts = [sortedLeftNuts, matchedNut, sortedRightNuts];
+    sortedBolts = [sortedLeftBolts, pivotBolt, sortedRightBolts];
+    
+endfunction
+
+function [leftPartition, rightPartition, matchedElement] = partition(array, pivot)
+    leftPartition = [];
+    rightPartition = [];
+    matchedElement = [];
+    for i = 1:length(array) do
+        if array(i) < pivot then
+            leftPartition = [leftPartition, array(i)];
+        elseif array(i) > pivot then
+            rightPartition = [rightPartition, array(i)];
+        else
+            matchedElement = array(i);
+        end
+    end
+endfunction
+
+nuts = [5, 25, 80, 3, 6, 4];
+bolts = [4, 6, 25, 5, 3, 80];
+[nuts, bolts] = matchNutsAndBolts(nuts, bolts);
+disp("Matched Nuts:");
+disp(nuts);
+disp("Matched Bolts:");
+disp(bolts);
+
+18.Generate a binary string of length N using branch and bound technique.
+(Input: N = 3 Output: 000 001 010 011 100 101 110 111 Explanation: Numbers
+with 3 binary digits are 0, 1, 2, 3, 4, 5, 6, 7 Input: N = 2 Output: 00 01 10 11)
+// Function to recursively generate binary strings using branch and bound
+function generateBinaryStrings(N, currentString)
+    // If the current string reaches length N, print it
+    if length(currentString) == N then
+        disp(currentString);  // Print the binary string
+        return;
+    end
+    
+    // Branch to the next level: append '0' or '1'
+    generateBinaryStrings(N, currentString + "0");  // Append '0' and recurse
+    generateBinaryStrings(N, currentString + "1");  // Append '1' and recurse
+endfunction
+
+// Main function to initiate the binary string generation
+function generateAllBinaryStrings(N)
+    generateBinaryStrings(N, "");  // Start with an empty string
+endfunction
+
+// Example usage:
+N = 3;  // Length of the binary strings
+generateAllBinaryStrings(N);
+
+Suppose we want to make an exam schedule for a university. We have listed different subjects and students enrolled in every subject. Many subjects would have common students (of the same batch, some backlog students, etc). How do we schedule the exam so that no two exams with a common student are scheduled at same time? How many minimum time slots are needed to schedule all exams? This problem can be represented as a graph where every vertex is a subject and an edge between two vertices means there is a common student. So this is a graph coloring problem where the minimum number of time slots is equal to the chromatic number of the graph. Write a Scilab program to solve the above problem.
+function chromatic_number = graph_coloring(graph)
+    
+    chromatic_number = 1;  
+    
+    colors = zeros(size(graph, 1), 1);
+    
+    function safe = is_safe(vertex, color, graph, colors)
+        safe = %T; 
+        for i = 1:size(graph, 2)
+            if graph(vertex, i) == 1 && colors(i) == color
+                safe = %F; 
+                break;
+            end
+        end
+    end
+    
+    function solve(vertex, graph, colors)
+        if vertex > size(graph, 1)
+            current_chromatic_number = max(colors);
+            chromatic_number = max(chromatic_number, current_chromatic_number);
+            return;
+        end
+        
+        for color = 1:max(chromatic_number, max(colors)) + 1
+            if is_safe(vertex, color, graph, colors)
+                colors(vertex) = color;  
+                solve(vertex + 1, graph, colors);  
+                colors(vertex) = 0;  
+            end
+        end
+    end
+    
+    solve(1, graph, colors);
+end
+
+graph = [0 1 1 0; 
+         1 0 1 1;
+         1 1 0 1;
+         0 1 1 0];
+        
+chromatic_number = graph_coloring(graph);
+disp("Minimum time slots needed: " + string(chromatic_number));
+
+19.Write a Scilab program to solve a problem of maze by applying an appropriate
+Algorithm.(MAZE PROBLEM)
+function move(m, n, x, y, maze)
+    maze(x, y) = 0;
+    disp(maze);
+ if x == goal(1) & y == goal(2) then
+        return;
+    end
+   if x < m & maze(x + 1, y) == 1 then
+        move(m, n, x + 1, y, maze);
+    end
+   if y < n & maze(x, y + 1) == 1 then
+        move(m, n, x, y + 1, maze);
+    end
+   if y > 1 & maze(x, y - 1) == 1 then
+        move(m, n, x, y - 1, maze);
+    end
+   if x > 1 & maze(x - 1, y) == 1 then
+        move(m, n, x - 1, y, maze);
+    end
+endfunction
+function backtrack(x, y, maze)
+    maze(x, y) = 1;
+    disp(maze);
+     if x == start(1) & y == start(2) then
+        return;
+    end
+    if x < m & maze(x + 1, y) == 0 then
+        backtrack(x + 1, y, maze);
+    end    
+    if y < n & maze(x, y + 1) == 0 then
+        backtrack(x, y + 1, maze);
+    end 
+    if y > 1 & maze(x, y - 1) == 0 then
+        backtrack(x, y - 1, maze);
+    end
+   if x > 1 & maze(x - 1, y) == 0 then
+        backtrack(x - 1, y, maze);
+    end
+endfunction
+maze = [1, 0, 0, 0; 
+        1, 1, 1, 1; 
+        0, 1, 0, 1; 
+        1, 0, 1, 1];
+start = [1, 1];
+goal = [4, 4];
+n = size(maze, 1);
+m = size(maze, 2);
+disp(maze);
+
+move(m, n, start(1), start(2), maze);
+backtrack(goal(1), goal(2), maze);
+
+20.Write a Scilab program to find Minimum Cost Spanning Tree of a given connected
+undirected graph using Prim’s algorithm.
+
+// Function to implement Prim's algorithm and find the MST
+function [mst, total_cost] = primsMST(graph, N)
+    // Initialize the key values and parent array
+    key = ones(1, N) * %inf;  // Key values of vertices
+    parent = zeros(1, N);      // Parent array to store MST
+    mst = zeros(1, N);         // Array to track MST inclusion (1 if in MST, 0 if not)
+    key(1) = 0;                // Starting from vertex 1 (index 1 in Scilab)
+    
+    total_cost = 0;            // Variable to store the total cost of MST
+    
+    for count = 1:N
+        // Find the vertex with the minimum key value
+        u = -1;
+        min_key = %inf;
+        
+        for i = 1:N
+            if mst(i) == 0 & key(i) < min_key then
+                min_key = key(i);
+                u = i;
+            end
+        end
+        
+        // Include vertex u in MST
+        mst(u) = 1;
+        total_cost = total_cost + key(u);  // Add the edge weight to total cost
+        
+        // Update the key values of adjacent vertices
+        for v = 1:N
+            if graph(u, v) > 0 & mst(v) == 0 & graph(u, v) < key(v) then
+                key(v) = graph(u, v);  // Update key value
+                parent(v) = u;          // Set parent of vertex v
+            end
+        end
+    end
+    
+    // Display the minimum spanning tree edges
+    disp("Edges in MST (parent, child, weight):");
+    for i = 2:N  // Starting from the second vertex (since the first one is arbitrary)
+        disp([parent(i), i, graph(parent(i), i)]);
+    end
+endfunction
+
+// Example graph (adjacency matrix) representation of a connected undirected graph
+graph = [
+    0, 2, 0, 6, 0;  // Vertex 1 connections
+    2, 0, 3, 8, 5;  // Vertex 2 connections
+    0, 3, 0, 0, 7;  // Vertex 3 connections
+    6, 8, 0, 0, 9;  // Vertex 4 connections
+    0, 5, 7, 9, 0   // Vertex 5 connections
+];
+
+// Number of vertices
+N = size(graph, 1);
+
+// Call the Prim's algorithm function to find the MST
+[mst, total_cost] = primsMST(graph, N);
+
+// Display the total cost of the MST
+disp("Total cost of the Minimum Spanning Tree (MST):");
+disp(total_cost);
+
+Given a set of cities and distance between every pair of cities, the problem is to find the shortest possible tour that visits every city exactly once and returns to the starting point.
+function [min_distance, best_path] = tspBranchBound(cost_matrix)
+    n = size(cost_matrix, 1);  // Number of cities
+
+    visited = zeros(1, n); 
+    visited(1) = 1; // Start from the first city (city 0)
+
+    best_path = [];
+
+    [min_distance, best_path] = tsp_recursive(cost_matrix, visited, 1, 0, 1, n, [0]);
+endfunction
+
+function [distance, best_path] = tsp_recursive(cost_matrix, visited, current_city, current_distance, count, n, current_path)
+
+    if count == n then
+        final_distance = current_distance + cost_matrix(current_city, 1); 
+        current_path = [current_path, 0]; 
+        distance = final_distance;
+        best_path = current_path; // Store the best path found
+        return;
+    end
+    
+    min_distance = %inf; 
+    best_path = [];    
+    
+ 
+    for next_city = 2:n
+        if visited(next_city) == 0 then
+            visited(next_city) = 1; // Mark the city as visited
+
+            new_distance = current_distance + cost_matrix(current_city, next_city);
+            
+            [temp_distance, temp_path] = tsp_recursive(cost_matrix, visited, next_city, new_distance, count + 1, n, [current_path, next_city - 1]);
+            
+            
+            if temp_distance < min_distance then
+                min_distance = temp_distance;
+                best_path = temp_path; // Update best path if a new minimum distance is found
+            end
+            
+            visited(next_city) = 0; // Backtrack, mark the city as unvisited
+        end
+    end
+    
+    distance = min_distance; // Return the minimum distance for the current recursion level
+endfunction
+
+
+function path_str = join_path_with_arrow(path)
+    path_str = string(path(1));  // Start with the first city
+    for i = 2:length(path)
+        path_str = path_str + "->" + string(path(i));  // Append each city with "->"
+    end
+endfunction
+
+
+cost_matrix = [0 10 15 20; 10 0 35 25; 15 35 0 30; 20 25 30 0]; // Updated Distance matrix for 4 cities
+[min_distance, best_path] = tspBranchBound(cost_matrix);
+
+formatted_path = join_path_with_arrow(best_path);
+
+// Display the results
+disp("Shortest distance covering all cities is: " + string(min_distance));
+disp("Best path for the tour is: " + formatted_path);
+
+Write a program to find the minimum cost spanning tree using Prim’s Algorithm.
+// Function to implement Prim's algorithm and find the MST
+function [mst, total_cost] = primsMST(graph, N)
+    // Initialize the key values and parent array
+    key = ones(1, N) * %inf;  // Key values of vertices
+    parent = zeros(1, N);      // Parent array to store MST
+    mst = zeros(1, N);         // Array to track MST inclusion (1 if in MST, 0 if not)
+    key(1) = 0;                // Starting from vertex 1 (index 1 in Scilab)
+    
+    total_cost = 0;            // Variable to store the total cost of MST
+    
+    for count = 1:N
+        // Find the vertex with the minimum key value
+        u = -1;
+        min_key = %inf;
+        
+        for i = 1:N
+            if mst(i) == 0 & key(i) < min_key then
+                min_key = key(i);
+                u = i;
+            end
+        end
+        
+        // Include vertex u in MST
+        mst(u) = 1;
+        total_cost = total_cost + key(u);  // Add the edge weight to total cost
+        
+        // Update the key values of adjacent vertices
+        for v = 1:N
+            if graph(u, v) > 0 & mst(v) == 0 & graph(u, v) < key(v) then
+                key(v) = graph(u, v);  // Update key value
+                parent(v) = u;          // Set parent of vertex v
+            end
+        end
+    end
+    
+    // Display the minimum spanning tree edges
+    disp("Edges in MST (parent, child, weight):");
+    for i = 2:N  // Starting from the second vertex (since the first one is arbitrary)
+        disp([parent(i), i, graph(parent(i), i)]);
+    end
+endfunction
+
+// Example graph (adjacency matrix) representation of a connected undirected graph
+graph = [
+    0, 2, 0, 6, 0;  // Vertex 1 connections
+    2, 0, 3, 8, 5;  // Vertex 2 connections
+    0, 3, 0, 0, 7;  // Vertex 3 connections
+    6, 8, 0, 0, 9;  // Vertex 4 connections
+    0, 5, 7, 9, 0   // Vertex 5 connections
+];
+
+// Number of vertices
+N = size(graph, 1);
+
+// Call the Prim's algorithm function to find the MST
+[mst, total_cost] = primsMST(graph, N);
+
+// Display the total cost of the MST
+disp("Total cost of the Minimum Spanning Tree (MST):");
+disp(total_cost);
+
+Write a Scilab program to find a subset of a given set S = {sl,s2,.....,sn} of n positive integers whose sum is equal to a given positive integer d.A suitable message is to be displayed if the given problem instance doesn't have a solution.
+// Function to find a subset whose sum is equal to d
+function subsetSum(S, n, d, currentSubset, currentIndex)
+    // If we have reached the required sum, print the subset
+    if d == 0 then
+        disp("Subset found:");
+        disp(currentSubset);
+        return;
+    end
+    
+    // If all elements are processed and we haven't found the subset
+    if currentIndex == n then
+        return;
+    end
+    
+    // Case 1: Include the current element and recurse
+    currentSubset(currentIndex + 1) = S(currentIndex + 1); // Include the element
+    subsetSum(S, n, d - S(currentIndex + 1), currentSubset, currentIndex + 1);
+    
+    // Case 2: Exclude the current element and recurse
+    currentSubset(currentIndex + 1) = []; // Exclude the element
+    subsetSum(S, n, d, currentSubset, currentIndex + 1);
+endfunction
+
+// Main function to start the backtracking process
+function findSubset(S, n, d)
+    // Start with an empty subset and begin with the first element
+    currentSubset = [];
+    subsetSum(S, n, d, currentSubset, 0);
+    
+    // If no subset is found, print a message
+    disp("No subset with the given sum exists.");
+endfunction
+
+// Example usage:
+S = [3, 34, 4, 12, 5, 2];  // The set of integers
+d = 9;  // The target sum
+n = length(S);  // Number of elements in the set
+
+findSubset(S, n, d);  // Call the function to find the subset
+
+24.Write a Scilab program to implement Job sequencing with deadlines using Greedy
+Method.
+// Job class to store job details
+function jobSeq = createJobStruct(job_id, deadline, profit)
+    jobSeq.id = job_id;
+    jobSeq.deadline = deadline;
+    jobSeq.profit = profit;
+endfunction
+
+// Function to perform job sequencing with deadlines
+function jobSequence(jobs, n)
+    // Sort jobs based on decreasing profit
+    for i = 1:n-1
+        for j = 1:n-i
+            if jobs(j).profit < jobs(j+1).profit then
+                temp = jobs(j);
+                jobs(j) = jobs(j+1);
+                jobs(j+1) = temp;
+            end
+        end
+    end
+    
+    // Initialize the result array to store the scheduled jobs
+    scheduledJobs = -ones(1, n); // -1 means the slot is empty
+    totalProfit = 0; // To keep track of total profit
+    
+    // Job sequence processing
+    for i = 1:n
+        // Find a free slot for this job
+        for j = min(jobs(i).deadline, n):-1:1
+            if scheduledJobs(j) == -1 then
+                // Schedule job in this slot
+                scheduledJobs(j) = jobs(i).id;
+                totalProfit = totalProfit + jobs(i).profit;
+                break;
+            end
+        end
+    end
+    
+    // Output the job sequence and total profit
+    disp("Job sequence for maximum profit:");
+    disp(scheduledJobs);
+    disp("Total profit:");
+    disp(totalProfit);
+endfunction
+
+// Example usage:
+jobs = [
+    createJobStruct(1, 2, 100),
+    createJobStruct(2, 1, 19),
+    createJobStruct(3, 2, 27),
+    createJobStruct(4, 1, 25),
+    createJobStruct(5, 3, 15)
+];
+
+n = length(jobs); // Number of jobs
+
+// Call the job sequencing function
+jobSequence(jobs, n);
+
+25.Write a Scilab program to find a solution for the knapsack problem using greedy
+method.
+// Function to solve Knapsack problem using Greedy method
+function [total_value, selected_items] = knapsackGreedy(weights, values, capacity, n)
+    // Calculate the value-to-weight ratio for each item
+    ratio = values ./ weights;  // Ratio of value to weight for each item
+    
+    // Sort items by ratio in decreasing order
+    [sorted_ratios, indices] = gsort(ratio, "d"); // 'd' for descending
+    sorted_weights = weights(indices);
+    sorted_values = values(indices);
+    
+    // Initialize variables
+    total_value = 0;  // Total value of the items selected
+    selected_items = zeros(1, n);  // Array to keep track of selected items (1 if selected)
+    remaining_capacity = capacity;  // Remaining capacity of the knapsack
+    
+    // Greedy selection of items
+    for i = 1:n
+        if sorted_weights(i) <= remaining_capacity then
+            // If the item can be fully taken
+            remaining_capacity = remaining_capacity - sorted_weights(i);
+            total_value = total_value + sorted_values(i);
+            selected_items(indices(i)) = 1;  // Mark this item as selected
+        else
+            // If the item cannot be fully taken, take the fraction of it
+            fraction = remaining_capacity / sorted_weights(i);
+            total_value = total_value + sorted_values(i) * fraction;
+            selected_items(indices(i)) = fraction;  // Mark fractional selection
+            break;  // No more items can be selected after taking the fractional item
+        end
+    end
+endfunction
+
+// Example usage:
+weights = [10, 20, 30];  // Weights of items
+values = [60, 100, 120];  // Values of items
+capacity = 50;  // Capacity of the knapsack
+n = length(weights);  // Number of items
+
+// Call the knapsackGreedy function to find the solution
+[total_value, selected_items] = knapsackGreedy(weights, values, capacity, n);
+
+// Display the results
+disp("Total value of selected items:");
+disp(total_value);
+disp("Selection of items (1 for fully selected, fraction for partially selected, 0 for not selected):");
+disp(selected_items);
+
+Find a subset of a given set S = {sl,s2,. ...,sn} of n positive integers whose sum is equal to a given positive integer d. For example, if S= {1, 2, 5, 6, 8} and d = 9 there are two solutions{1,2,6}and{1,8}.A suitable message is to be displayed if the a given problem instance doesn't have a solution.
+// Function to print a subset
+function printSubset(subset)
+    disp("Subset found:");
+    disp(subset);
+endfunction
+
+// Backtracking function to find the subset sum
+function subsetSum(S, n, d, currentSubset, currentIndex)
+    // Base case: if the sum of the current subset equals d, print it
+    if d == 0 then
+        printSubset(currentSubset);
+        return;
+    end
+
+    // If we have gone through all the elements, return
+    if currentIndex == n then
+        return;
+    end
+
+    // Case 1: Include the current element and recurse
+    currentSubset(currentIndex + 1) = S(currentIndex + 1);  // Include the element
+    subsetSum(S, n, d - S(currentIndex + 1), currentSubset, currentIndex + 1);
+
+    // Case 2: Exclude the current element and recurse
+    currentSubset(currentIndex + 1) = [];  // Exclude the element
+    subsetSum(S, n, d, currentSubset, currentIndex + 1);
+endfunction
+
+// Main function to find the subset sum
+function findSubset(S, n, d)
+    // Start with an empty subset and begin with the first element
+    currentSubset = [];
+    subsetSum(S, n, d, currentSubset, 0);
+    
+    // If no solution is found, print a message
+    disp("No subset with the given sum exists.");
+endfunction
+
+// Example usage:
+S = [1, 2, 5, 6, 8];  // The set of integers
+d = 9;  // The target sum
+n = length(S);  // Number of elements in the set
+
+// Call the findSubset function to check for the subset sum
+findSubset(S, n, d);
+
+Let there be N workers and N jobs. Any worker can be assigned to perform any job, incurring some cost that may vary depending on the work-job assignment. It is required to perform all jobs by assigning exactly one worker to each job and exactly one job to each agent in such a way that the total cost of the assignment is minimized. Write a Scilab program to solve this problem.
+// Function to solve the assignment problem using the Hungarian algorithm
+function [assignment, min_cost] = solveAssignmentProblem(cost_matrix)
+    // Use the built-in linear_sum_assignment function to solve the problem
+    [assignment, min_cost] = linear_sum_assignment(cost_matrix);
+endfunction
+
+// Example usage:
+N = 4;  // Number of workers (or jobs)
+
+// Example cost matrix (4 workers and 4 jobs)
+cost_matrix = [
+    10, 2, 8, 7;
+    6, 5, 7, 4;
+    3, 9, 4, 6;
+    8, 6, 7, 9
+];
+
+// Call the function to get the optimal assignment and the minimum cost
+[assignment, min_cost] = solveAssignmentProblem(cost_matrix);
+
+// Display the results
+disp("Optimal Assignment (Worker -> Job):");
+disp(assignment);
+
+disp("Minimum Total Cost:");
+disp(min_cost);
+
+Implement 0/1 Knapsack problem using Dynamic Programming.
+// Function to solve the 0/1 Knapsack problem using Dynamic Programming
+function max_value = knapsack0_1(values, weights, W, n)
+    // Create a DP table with dimensions (n+1) x (W+1)
+    dp = zeros(n+1, W+1);
+
+    // Fill the DP table
+    for i = 1:n
+        for w = 0:W
+            if weights(i) <= w then
+                dp(i+1, w+1) = max(dp(i, w+1), dp(i, w - weights(i) + 1) + values(i));
+            else
+                dp(i+1, w+1) = dp(i, w+1);  // If the item is too heavy, don't include it
+            end
+        end
+    end
+
+    // The maximum value will be in dp[n][W]
+    max_value = dp(n+1, W+1);
+endfunction
+
+// Example usage:
+values = [60, 100, 120];  // Values of the items
+weights = [10, 20, 30];   // Weights of the items
+W = 50;                   // Capacity of the knapsack
+n = length(values);       // Number of items
+
+// Call the knapsack function to get the maximum value
+max_value = knapsack0_1(values, weights, W, n);
+
+// Display the result
+disp("Maximum value in the knapsack:");
+disp(max_value);
+
+29.Design and implement in Scilab to find all Hamiltonian Cycles in a connected
+undirected Graph G of n vertices using backtracking principle.
+// Function to print the Hamiltonian cycle
+function printCycle(path)
+    n = length(path);
+    for i = 1:n
+        disp(path(i));
+    end
+    disp(path(1)); // To show the cycle, return to the start
+endfunction
+
+// Backtracking function to find all Hamiltonian cycles
+function findHamiltonianCycles(graph, path, pos, n)
+    // Base case: If all vertices are included in the cycle
+    if pos == n then
+        // If there is an edge from the last vertex to the first one, print the cycle
+        if graph(path(n), path(1)) == 1 then
+            printCycle(path);
+        end
+        return;
+    end
+
+    // Try different vertices as the next candidate in the cycle
+    for v = 2:n
+        // Check if this vertex can be added to the cycle
+        if isSafe(graph, path, v, pos, n) then
+            path(pos + 1) = v;  // Add vertex v to the path
+            // Recur to find the next vertex
+            findHamiltonianCycles(graph, path, pos + 1, n);
+            // Backtrack: Remove the vertex and try another one
+            path(pos + 1) = -1;
+        end
+    end
+endfunction
+
+// Helper function to check if a vertex can be added to the path
+function safe = isSafe(graph, path, v, pos, n)
+    // Check if the vertex v is an adjacent vertex to the previous vertex
+    if graph(path(pos), v) == 0 then
+        safe = %f;
+        return;
+    end
+
+    // Check if the vertex has already been included in the path
+    for i = 1:pos-1
+        if path(i) == v then
+            safe = %f;
+            return;
+        end
+    end
+    safe = %t;
+endfunction
+
+// Main function to initiate the search for Hamiltonian cycles
+function hamiltonianCycle(graph, n)
+    // Initialize the path with -1 (no vertices included yet)
+    path = -ones(1, n);
+    path(1) = 1; // Start from the first vertex (arbitrary choice)
+    
+    // Find all Hamiltonian cycles
+    findHamiltonianCycles(graph, path, 1, n);
+endfunction
+
+// Example usage:
+// Create an adjacency matrix representing the graph
+// Graph with 4 vertices, where graph[i][j] = 1 means there is an edge between i and j
+graph = [
+    0, 1, 1, 1;
+    1, 0, 1, 1;
+    1, 1, 0, 1;
+    1, 1, 1, 0
+];
+
+// Number of vertices in the graph
+n = 4;
+
+// Call the function to find and print all Hamiltonian cycles
+hamiltonianCycle(graph, n);
+
