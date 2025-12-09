@@ -592,7 +592,7 @@ disp("Binary = " + bin);
 function dec = binToDec(bin) 
     dec = 0; 
     len = length(bin); 
-    for i = 1:lenp 
+    for i = 1:len
         dec = dec + strtod(part(bin, i)) * 2^(len - i); 
     end 
 endfunction 
@@ -953,3 +953,4 @@ endfunction
 
 n = 3;
 gen(n, "");
+
